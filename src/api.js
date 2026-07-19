@@ -16,8 +16,8 @@ export const API = {
     async fetchWithErrorHandling(endpoint) {
         const separator = endpoint.includes('?') ? '&' : '?';
         const rawUrl = `${BASE_URL}${endpoint}${separator}api_key=${TMDB_API_KEY}&language=en-US`;
-        // Route directly through the proxy to bypass ISP blocks instantly
-        const targetUrl = `https://corsproxy.io/?${encodeURIComponent(rawUrl)}`;
+        // TMDB natively supports CORS. Free proxies often block production domains (Vercel/Netlify).
+        const targetUrl = rawUrl;
 
         try {
             const response = await fetch(targetUrl);
